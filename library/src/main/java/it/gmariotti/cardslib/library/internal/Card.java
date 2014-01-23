@@ -356,16 +356,16 @@ public class Card extends BaseCard {
      * Interface to listen for any callbacks when card is swiped.
      */
     public interface OnSwipeListener {
-        public void onSwipe(Card card);
+        public void onSwipe(Card card, boolean dismissRight);
     }
 
     /**
      * Called when card is swiped
      */
-    public void onSwipeCard() {
+    public void onSwipeCard(boolean dismissRight) {
         if (isSwipeable() && mOnSwipeListener != null) {
             //mOnSwipeListener.onSwipe(this, mCardView);
-            mOnSwipeListener.onSwipe(this);
+            mOnSwipeListener.onSwipe(this, dismissRight);
         }
     }
 

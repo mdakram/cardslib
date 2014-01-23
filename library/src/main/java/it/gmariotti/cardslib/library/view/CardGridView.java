@@ -18,11 +18,15 @@
 
 package it.gmariotti.cardslib.library.view;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.PropertyValuesHolder;
+import com.nineoldandroids.util.FloatProperty;
+import com.nineoldandroids.util.Property;
+import com.nineoldandroids.view.ViewHelper;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -75,6 +79,18 @@ import it.gmariotti.cardslib.library.internal.CardGridCursorAdapter;
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class CardGridView extends GridView implements CardView.OnExpandListAnimatorListener {
+
+    public static final Property<View, Float> ALPHA = new FloatProperty<View>("alpha") {
+        @Override
+        public void setValue(View object, float value) {
+            ViewHelper.setAlpha(object, value);
+        }
+
+        @Override
+        public Float get(View object) {
+            return ViewHelper.getAlpha(object);
+        }
+    };
 
     protected static String TAG = "CardGridView";
 
@@ -395,7 +411,7 @@ public class CardGridView extends GridView implements CardView.OnExpandListAnima
 
                 /* Adds an animation for fading in the extra content. */
                 animations.add(ObjectAnimator.ofFloat(expandingLayout,
-                        View.ALPHA, 0, 1));
+                        ALPHA, 0, 1));
 
                 /* Disabled the ListView for the duration of the animation.*/
                 setEnabled(false);
@@ -590,7 +606,7 @@ public class CardGridView extends GridView implements CardView.OnExpandListAnima
                 animations.add(getAnimation(view, yTranslateTop, -yTranslateBottom));
 
                 /* Adds an animation for fading out the extra content. */
-                animations.add(ObjectAnimator.ofFloat(expandingLayout, View.ALPHA, 1, 0));
+                animations.add(ObjectAnimator.ofFloat(expandingLayout, ALPHA, 1, 0));
 
                 /* Disabled the ListView for the duration of the animation.*/
                 setEnabled(false);

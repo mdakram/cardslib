@@ -229,7 +229,7 @@ public class CardArrayAdapter extends BaseCardArrayAdapter implements UndoBarCon
         }
 
         @Override
-        public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+        public void onDismiss(ListView listView, int[] reverseSortedPositions, boolean dismissRight) {
 
             int[] itemPositions=new int[reverseSortedPositions.length];
             String[] itemIds=new String[reverseSortedPositions.length];
@@ -250,7 +250,7 @@ public class CardArrayAdapter extends BaseCardArrayAdapter implements UndoBarCon
                 }
                 remove(card);
                 if (card.getOnSwipeListener() != null){
-                        card.getOnSwipeListener().onSwipe(card);
+                        card.getOnSwipeListener().onSwipe(card, dismissRight);
                 }
             }
             notifyDataSetChanged();
